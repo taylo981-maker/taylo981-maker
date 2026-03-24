@@ -1,2 +1,11 @@
-let numero = [10, 30, 70, 1, 5]
-console.log(numero)
+let vetor = [10, 40, 50];
+console.log(vetor);
+
+
+if (vetor[10]>100){
+    console.log ("o primeiro vetor e maior que 100")
+    
+} else {
+    console.log ("o primeiro valor nao e maior que 100")
+}
+ 
