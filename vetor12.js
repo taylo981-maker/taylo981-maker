@@ -1,4 +1,0 @@
-let vetor = ["ana", "bruno", "carlos", "eva"];
-
-let vetormaior = vetor.filter((vetor) => vetor.length > 4);
-console.log(vetormaior);
