@@ -1,0 +1,14 @@
+let n1 = 901;
+let n2 = 550;
+let n3 = 1000;
+
+let maior = n1
+
+if(n2 > maior) {
+    maior = n2
+} if (n3 > maior) {
+    maior = n3;
+}
+
+console.log (("o número maior é " ) + maior);
+
