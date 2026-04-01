@@ -1,0 +1,14 @@
+const prompt = require("prompt-sync")();
+
+for (let i = 0; i < 3; i++) {
+
+    let nome = prompt(" Aluno " + (i + 1) + ": ");
+    
+    let nota = Number(prompt("Nota " + (i + 1) + ": "));
+
+    if (nota >= 7) {
+        console.log("Olha aí, " + nome + "! Aprovado " + nota);
+    } else {
+        console.log("Que pena, " + nome + "! Reprovado " + nota);
+    }
+}

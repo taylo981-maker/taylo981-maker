@@ -1,14 +1,10 @@
-const prompt = require('prompt-sync')();
-let nomes = [];
+const prompt = require("prompt-sync")();
+let numeros = [];
+let soma = 0;
 
 for (let i = 0; i < 5; i++) {
-    let nome = prompt("nomes " + (i + 1) + ": ");
-    nomes.push(nome);
+    let numero = prompt(" Número: ");
+    numeros.push( Number (numero) );
+    soma += Number (numero);
 }
-
-console.log("\n=== Nomes das 5 pessoas ===");
-for (let i = 0; i < nomes.length; i++) {
-    console.log("Olá, " + nomes[i] + "!");
-}
-
-console.log("\nTotal de pessoas: " + nomes.length);
+console.log("Total: " + soma);
