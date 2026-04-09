@@ -28,12 +28,14 @@ while (opcao !== '4') {
         console.log("\n=== Lista de alunos ===");
 
         alunos.forEach((aluno, index) => {
-            console.log(`${index + 1}. ${aluno.nome} - Idade: ${aluno.idade} - Nota: ${aluno.nota}`);
-        });
+
+    let status = aluno.nota >= 7 ? "Aprovado" : "Reprovado";
+
+    console.log(`${index + 1}. ${aluno.nome} - Idade: ${aluno.idade} - Nota: ${aluno.nota} - ${status}`);
+});
 
     } else if (opcao === '3') {
 
-        const nomeBusca = prompt("Digite o nome do aluno: ");
 
         const aluno = alunos.find(a => a.nome === nomeBusca);
 
