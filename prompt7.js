@@ -27,27 +27,12 @@ while (opcao !== '4') {
 
         console.log("\n=== Lista de alunos ===");
 
-        alunos.forEach((aluno, index) => {
-
-    let status = aluno.nota >= 7 ? "Aprovado" : "Reprovado";
-
-    console.log(`${index + 1}. ${aluno.nome} - Idade: ${aluno.idade} - Nota: ${aluno.nota} - ${status}`);
-});
-
+        for (let i = 0; i < alunos.length; i++) {
+            const aluno = alunos[i];
+            console.log (`${i + 1}. Nome: ${aluno.nome}, Idade: ${aluno.idade}, Nota: ${aluno.nota} `);
+        }   
     } else if (opcao === '3') {
 
-
-        const aluno = alunos.find(a => a.nome === nomeBusca);
-
-        if (aluno) {
-            if (aluno.nota >= 7) {
-                console.log(`Aprovado! Nota: ${aluno.nota}`);
-            } else {
-                console.log(`Reprovado! Nota: ${aluno.nota}`);
-            }
-        } else {
-            console.log("Aluno não encontrado.");
-        }
 
     } else if (opcao === '4') {
 
