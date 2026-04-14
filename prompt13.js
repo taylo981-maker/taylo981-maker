@@ -1,4 +1,4 @@
-const prompt = require('prompt-sync')()
+const prompt = require('prompt-sync')();
 
 let opcao = '';
 
@@ -6,56 +6,162 @@ let prazos = [];
 
 let quantidadeperdida = [];
 
-let setor = [];
+let setores = [];
 
-let prioridade = [];
+let prioridades = [];
 
-let descricao = []; 
 
-while (opcao !== '5') {
+function calcularPrioridades() {
+    prioridades = []; 
+    for (let i = 0; i < prazos.length; i++) {
+        let prazo = prazos[i];
+        let prioridade = "";
+        if (prazo <= 2) {
 
-    console.log ( "\n== MENU == ")
+            prioridade = "🔴 urgente";
+            
+        } else if (prazo <= 5) {
+            
+            prioridade = "🟠 alta";
+            
+        } else if (prazo <= 10) {
 
-    console.log ("1. prazo");
+            prioridade = "🟡 média";
+        } else {
 
-    console.log ("2. quantidade perdida");
+            prioridade = "🟢 baixa";
+        }
 
-    console.log ("3. setor");
+        prioridades[i] = prioridade;
+    }
+}
 
-    console.log ("4. prioridade");
+function listarPedidos() {
 
-    console.log ("5. sair");
 
-    opcao = prompt(" opcao: ");
+    if (prazos.length === 0) {
+        console.log("\n❌ Nenhum pedido cadastrado.");
+        return;
+    }
 
-    const produtos = Number(prompt("Difine o prazo do produto: "));
-    const perdas = Number(prompt("Difine a quantidade perdida do produto: "));
-    const setores = Number(prompt("Difine o setor do produto: "));
-    const proridades = prompt("Difine a prioridade do produto: ");
+    calcularPrioridades();
 
-descricao.push({prazos, quantidadeperdida, setor, prioridade});
+    console.log("\n" + "=".repeat(85));
+    console.log("    | Setor               | Prazo (dias) | Qtd Perdida | Prioridade   ");
+    console.log("    |-------------------|--------------|-------------|--------------");
+
+    for (let i = 0; i < prazos.length; i++) {
+
+        let setor = (setores[i] || "N/A").padEnd(19);
+
+        let prazoStr = prazos[i].toString().padEnd(11);
+
+        let qtdStr = (quantidadeperdida[i] || 0).toString().padEnd(11);
+
+        let prio = (prioridades[i] || "N/A").padEnd(12);
+
+
+        console.log(`    | ${setor} | ${prazoStr} | ${qtdStr} | ${prio}`);
+    }
+
+
+    console.log("=".repeat(85));
+
+    console.log(`\nTotal de pedidos: ${prazos.length}`);
+}
+
+while (opcao !== '7') {
+    console.log("\n== MENU PEDIDOS ==");
+    console.log("1. prazo");
+    console.log("2. quantidade perdida");
+    console.log("3. setor");
+    console.log("4. calcular prioridade (ultimo)");
+    console.log("5. calcular todas prioridades");
+    console.log("6. Listar pedidos");
+    console.log("7. sair");
+
+    opcao = prompt("Opção: ");
 
     if (opcao === '1') {
 
+        let prazo = Number(prompt("Prazo (dias): "));
 
-        let prazo = prompt("prazo: ");
+        if (isNaN(prazo) || prazo < 0) {
+
+
+            console.log("Prazo inválido!");
+            continue;
+        }
+
         prazos.push(prazo);
-    } 
 
-    else if (opcao === '2') {
+        console.log(`Prazo ${prazo} cadastrado!`);
 
-        let quadtidade = prompt("quantidade perdida: ");
-        quantidadeperdida.push(quadtidade) ;
-    } 
+    } else if (opcao === '2') {
 
-    else if (opcao === '3') {
+        let quantidade = Number(prompt("Quantidade perdida: "));
+        if (isNaN(quantidade) || quantidade < 0) {
+            console.log("Quantidade inválida!");
+            continue;
+        }
+        if (quantidadeperdida.length < prazos.length) {
+            quantidadeperdida.push(quantidade);
+        } else {
+            quantidadeperdida[quantidadeperdida.length - 1] = quantidade;
+        }
 
-        let setor = prompt("setor: ");
-        setor.push(setor);
+
+        console.log(`Qtd perdida ${quantidade} cadastrada!`);
+
+
+
+    } else if (opcao === '3') {
+        let setorInput = prompt("Setor: ").trim();
+        if (setores.length < prazos.length) {
+            setores.push(setorInput);
+        } else {
+            setores[setores.length - 1] = setorInput;
+        }
+        console.log(`Setor ${setorInput} cadastrado!`);
+
+
+
+    } else if (opcao === '4') {
+        if (prazos.length === 0) {
+            console.log("Cadastre um prazo primeiro!");
+            continue;
+        }
+        let ultimoIndex = prazos.length - 1;
+        let prazo = prazos[ultimoIndex];7
+        let prioridade = "";
+        if (prazo <= 2) {
+            prioridade = "🔴 urgente";
+        } else if (prazo <= 5) {
+            prioridade = "🟠 alta";
+        } else if (prazo <= 10) {
+            prioridade = "🟡 média";
+        } else {
+            prioridade = "🟢 baixa";
+        }
+        prioridades[ultimoIndex] = prioridade;
+        console.log("Prioridade definida para último:", prioridade);
+
+
+
+    } else if (opcao === '5') {
+        calcularPrioridades();
+        console.log("Todas prioridades calculadas!");
+
+    } else if (opcao === '6') {
+        listarPedidos();
+
+    } else if (opcao === '7') {
+        console.log("Saindo do programa...");
+        break;
+
+    } else {
+        console.log("Opção inválida. Tente novamente.");
     }
+}
 
-    else if (opcao === '4') {
-
-        let prioridade = prompt("prioridade: ");
-        prioridade.push(prioridade) ;
-    }}
+console.log("Programa encerrado.");
