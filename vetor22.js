@@ -1,0 +1,21 @@
+let vetor = [100, 67, 45, 90, 500];
+
+let numero = Number(prompt("digite um numero:"));
+
+let encontrou = false;
+
+for (let i = 0; i < vetor.length; i++) {
+
+    if (vetor[i] === numero) {
+
+        encontrou = true;
+    }
+}
+
+if (encontrou) {
+
+    console.log("Número encontrado no vetor!");
+} else {
+    
+    console.log("Número NÃO encontrado no vetor!");
+}
