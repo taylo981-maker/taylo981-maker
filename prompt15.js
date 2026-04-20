@@ -1,0 +1,98 @@
+const prompt = require('prompt-sync')();
+
+let option = '';
+let produtos = [];
+let valores = [];
+let prazos = [];
+let prios = [];
+
+while (option !== '5') {
+
+    console.log('Menu pedidos');
+    console.log('1 - Cadastrar pedido');
+    console.log('2 - Listar pedidos');
+    console.log('3 - Resumo pedido');
+    console.log('4 - Buscar pedido');
+    console.log('5 - Sair');
+
+    option = prompt('Escolha uma opção: ');
+
+    if (option === '1') {
+
+        let prod = prompt('Digite o nome do produto: ');
+        let valor = parseFloat(prompt('Digite o valor do produto: '));
+        let prazo = parseInt(prompt('Digite o prazo de entrega do produto: '));
+        let prio;
+
+        if (prazo <= 2) {
+            prio = 'vermelho';
+        } else if (prazo <= 5) {
+            prio = 'laranja';
+        } else if (prazo <= 10) {
+            prio = 'amarelo';
+        } else {
+            prio = 'verde';
+        }
+
+        produtos.push(prod);
+        valores.push(valor);
+        prazos.push(prazo);
+        prios.push(prio);
+
+        console.log('Cadastro realizado com sucesso!');
+
+    } else if (option === '2') {
+
+        console.log('Lista de pedidos:');
+
+        for (let i = 0; i < produtos.length; i++) {
+            console.log(produtos[i] + ' | ' + valores[i] + ' | ' + prazos[i] + ' dias | ' + prios[i]);
+        }
+
+    } else if (option === '3') {
+
+        let totval = 0;
+        let red = 0;
+        let orange = 0;
+        let yellow = 0;
+        let green = 0;
+
+        for (let i = 0; i < produtos.length; i++) {
+
+            totval += valores[i];
+
+            if (prios[i] === 'vermelho') {
+                red++;
+            } else if (prios[i] === 'laranja') {
+                orange++;
+            } else if (prios[i] === 'amarelo') {
+                yellow++;
+            } else if (prios[i] === 'verde') {
+                green++;
+            }
+        }
+
+        console.log('Total de pedidos: ' + produtos.length);
+        console.log('Valor total: ' + totval);
+        console.log('Vermelho: ' + red);
+        console.log('Laranja: ' + orange);
+        console.log('Amarelo: ' + yellow);
+        console.log('Verde: ' + green);
+
+    } else if (option === '4') {
+
+        let busca = prompt('Produto: ');
+        let encontrado = false;
+
+        for (let i = 0; i < produtos.length; i++) {
+            if (produtos[i] === busca) {
+                console.log(produtos[i] + ' | ' + valores[i] + ' | ' + prazos[i] + ' dias | ' + prios[i]);
+                encontrado = true;
+            }
+        }
+
+        if (!encontrado) {
+            console.log('Produto não encontrado.');
+        }
+    }
+}
