@@ -1,0 +1,38 @@
+// PROGRAMA PARA VERIFICAR SE UM NUMERO E PRIMO
+// USA FUNCAO BOOLEAN PARA VERIFICAR
+// USA FUNCAO VOID PARA MOSTRAR MENSAGEM
+
+const prompt = require('prompt-sync')();
+
+// FUNCAO BOOLEAN QUE VERIFICA SE O NUMERO E PRIMO
+// RETORNA TRUE SE FOR PRIMO, FALSE SE NAO FOR
+function ePrimo(numero) {
+    if (numero < 2) {
+        return false;
+    }
+    
+    for (let i = 2; i < numero; i = i + 1) {
+        if (numero % i === 0) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// FUNCAO VOID QUE MOSTRA A MENSAGEM
+function mostrarMensagem(numero, resultado) {
+    if (resultado === true) {
+        console.log("O numero", numero, "e primo");
+    } else {
+        console.log("O numero", numero, "nao e primo");
+    }
+}
+
+
+let numero = Number(prompt("Digite um numero: "));
+
+let resultado = ePrimo(numero);
+
+
+mostrarMensagem(numero, resultado);
