@@ -1,0 +1,13 @@
+let matriz = [
+    [4, 5, 11],
+    [5, 9, 1],
+    [8, 7, 3],
+];
+
+for (let i = 0; i < matriz.length; i++) {
+    console.log("aluno " + i + ":");
+
+    for (let j = 0; j < matriz[i].length; j++) {
+        console.log("disciplina " + j + ": " + matriz[i][j]);
+    }
+}
