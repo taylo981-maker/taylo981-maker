@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main() {
+    
+    int opcao, n;
+    
+    while (1){
+    
+    printf ( "1 - Dobro\n");
+    printf ( "2 - Quadrado\n");
+    printf ( "3 - Sair\n");
+    printf ( "escolher opçao:\n");
+    scanf ("%d", &opcao);
+    
+    if ( opcao == 1) {
+        printf (" digite o numero:");
+        scanf ("%d" , &n);
+        
+        printf ("dobro %d\n", n * 2);
+        
+    } else if (opcao == 2){
+        printf(" digite o numero:");
+        scanf("%d ", &n);
+        
+        printf("quadrado: %d\n", n * n);
+        
+    } else if ( opcao == 3){
+        printf("saindo..\n");
+        break;
+    }
+    }
+    
+    
+    return 0;
+}
