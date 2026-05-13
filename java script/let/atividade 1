@@ -1,1 +1,25 @@
+// Função para calcular idade
+function calcularIdade(nascimento) {
+    let anoAtual = 2026;
+    return anoAtual - nascimento;
+}
 
+// Função para calcular média
+function calcularMedia(nota1, nota2) {
+    return (nota1 + nota2) / 2;
+}
+
+// Entrada de dados
+let nome = prompt("Digite o nome do aluno:");
+let nascimento = Number(prompt("Digite o ano de nascimento:"));
+let nota1 = Number(prompt("Digite a primeira nota:"));
+let nota2 = Number(prompt("Digite a segunda nota:"));
+
+// Processamento
+let idade = calcularIdade(nascimento);
+let media = calcularMedia(nota1, nota2);
+
+// Saída
+console.log("Nome: " + nome);
+console.log("Idade: " + idade);
+console.log("Média: " + media);
