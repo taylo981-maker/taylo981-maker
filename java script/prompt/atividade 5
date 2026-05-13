@@ -1,0 +1,57 @@
+onst prompt = require('prompt-sync')();
+
+let pedidos = []; // Array de objetos para simplicidade
+
+// Função para calcular prioridade
+function getPrioridade(prazo) {
+    if (prazo <= 2) return "🔴 urgente";
+    if (prazo <= 5) return "🟠 alta";
+    if (prazo <= 10) return "🟡 média";
+    return "🟢 baixa";
+}
+
+// Listagem com for
+function listarPedidos() {
+    if (pedidos.length === 0) {
+        console.log("Nenhum pedido!");
+        return;
+    }
+
+    console.log("\nID | Setor     | Prazo | Qtd | Prioridade");
+    console.log("--|-----------|-------|-----|-----------");
+
+    for (let i = 0; i < pedidos.length; i++) {
+        let p = pedidos[i];
+        console.log(
+            (i+1).toString().padStart(2) + " | " +
+            p.setor.padEnd(9) + " | " +
+            p.prazo.toString().padEnd(5) + " | " +
+            p.qtd.toString().padEnd(3) + " | " +
+            p.prioridade
+        );
+    }
+    console.log("Total:", pedidos.length);
+}
+
+let opcao = "";
+while (opcao !== "4") {
+    console.log("\n1. Novo pedido  2. Listar  3. Prioridade auto  4. Sair");
+    opcao = prompt("Opção: ");
+
+    if (opcao === "1") {
+        let prazo = Number(prompt("Prazo (dias):"));
+        let qtd = Number(prompt("Qtd perdida:"));
+        let setor = prompt("Setor:");
+        pedidos.push({prazo, qtd, setor, prioridade: getPrioridade(prazo)});
+        console.log("Pedido adicionado!");
+    } else if (opcao === "2") {
+        listarPedidos();
+    } else if (opcao === "3") {
+        // Recalcula todas prioridades
+        for (let i = 0; i < pedidos.length; i++) {
+            pedidos[i].prioridade = getPrioridade(pedidos[i].prazo);
+        }
+        console.log("Prioridades atualizadas!");
+    }
+}
+console.log("Fim.");
