@@ -1,0 +1,45 @@
+const prompt = require("prompt-sync")();
+
+let opcao = '';
+let alunos = [];
+
+while (opcao !== '4') {
+
+    console.log("\n=== Menu ===");
+    console.log("1. Cadastrar aluno");
+    console.log("2. Listar alunos");
+    console.log("3. Verificar nota");
+    console.log("4. Sair");
+
+    opcao = prompt("Opcao: ");
+
+    if (opcao === '1') {
+
+        const nome = prompt("nome do aluno: ");
+        const idade = prompt("idade do aluno: ");
+        const nota = Number(prompt("nota do aluno: "));
+
+        alunos.push({ nome, idade, nota });
+
+        console.log(`Aluno ${nome} cadastrado com sucesso!`);
+
+    } else if (opcao === '2') {
+
+        console.log("\n=== Lista de alunos ===");
+
+        for (let i = 0; i < alunos.length; i++) {
+            const aluno = alunos[i];
+            console.log (`${i + 1}. Nome: ${aluno.nome}, Idade: ${aluno.idade}, Nota: ${aluno.nota} `);
+        }   
+    } else if (opcao === '3') {
+
+
+    } else if (opcao === '4') {
+
+        console.log("exit...");
+
+    } else {
+
+        console.log("Opção inválida.");
+    }
+}
