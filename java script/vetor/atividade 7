@@ -1,0 +1,4 @@
+let vetor = [5, 12, 8, 20, 3, ];
+
+let valoracima = vetor .filter((vetor) => vetor >10);
+console.log(valoracima);
