@@ -1,0 +1,45 @@
+include <stdio.h>
+
+int main() {
+    float notas[5];
+    float soma = 0, media;
+    float maior;
+
+    // 1. LEITURA + soma acumulada
+    for (int i = 0; i < 5; i++) {
+        printf("Digite a nota %d: ", i + 1);
+        scanf("%f", &notas[i]);
+        soma += notas[i];
+    }
+
+    // 2. CÁLCULO da média
+    media = soma / 5;
+
+    // 3. MAIOR NOTA — começa assumindo que a primeira é a maior
+    maior = notas[0];
+    for (int i = 1; i < 5; i++) {
+        if (notas[i] > maior) {
+            maior = notas[i];  // atualiza se encontrar um valor maior
+        }
+    }
+
+    // 4. EXIBIÇÃO das notas (percorre o vetor de novo)
+    printf("\n--- Notas ---\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Nota %d: %.2f\n", i + 1, notas[i]);
+    }
+
+    // 5. MÉDIA e SITUAÇÃO
+    printf("\nMédia: %.2f\n", media);
+
+    if (media >= 6.0) {
+        printf("Situação: Aprovado\n");
+    } else {
+        printf("Situação: Reprovado\n");
+    }
+
+    // 6. MAIOR nota
+    printf("Maior nota: %.2f\n", maior);
+
+    return 0;
+}
