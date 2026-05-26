@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+
+/*ler 3 numeros: 20, 50, 70
+E exibir o maior valor, o intermediário, e o menor valor
+Trate o caso em que dois ou três números são iguais. exemplo: 5,5,7 ; 7,8,9 ; 10,10,10 
+*/
+
+
+int main()
+{
+    int  A , B, C;
+    int intermediario;
+    int maior = 0;
+    int menor = 0;
+    
+    /*Entrada dos numeros
+    */
+    
+    printf ("digite o numero:");
+    scanf ("%d", &A);
+    printf ("digite o numero:");
+    scanf ("%d", &B);
+    printf ("digite o numero:");
+    scanf ("%d", &C);
+    /*Qual é o maior numero
+    */
+    
+    if ( A >= B && A >= C){
+        maior = A; 
+    }
+    else if ( B >= C && B >=C){
+        maior = B;    
+    }
+    else if ( C >= A && C >= B){
+        maior = C;
+    }
+    
+    /*Descobrir o menor munero
+    */
+    
+    if ( A <= B && A <= B){
+        menor = A;
+    }
+    else if ( B <= C && B <= C){
+        menor = B;
+    }
+    else {
+        menor = C;
+    }
+    
+    /*Deescobrir qual é o intermediário
+    */
+    
+    intermediario =  A + B + C - maior - menor;
+    
+    /*Saida de exibição
+    */
+    
+    printf( " Maior número é: %d\n", maior);
+    printf (" Menor número é: %d\n", menor);
+    printf(" Número intermediário é: %d\n", intermediario);
+    
+    return 0;
+}
