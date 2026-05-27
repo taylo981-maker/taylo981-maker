@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+
+/* Criar um algaritmo que leia um numero inteiro e some esse numero por 1, 2, 3, 4, 5... 
+usar o for e exiba o resultados e exiba também os médias dos valores
+*/
+
+
+int main()
+{
+   int numero;
+   int soma = 0;
+   
+   /* ENTRADA DO NUMERO INTEIRO*/
+   
+   printf ( "Digite o número: ");
+   scanf ( "%d", &numero);
+   
+    /* SOMA DO NUMERO INTEIRO*/
+    
+   for ( int i = 1 ; i < numero; i++){
+       soma = soma + i;
+   }
+   
+   /* EXIBIÇÃO DA LEITURAS DO NUMERO E SOMA */
+   
+   printf ( "soma = %d\n", soma);
+   
+    return 0;
+}
