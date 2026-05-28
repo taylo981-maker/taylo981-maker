@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+
+/* DEFINIR O TIPO DE TYPEDEY*/
+
 int main()
 {
    
@@ -11,32 +14,55 @@ int main()
         
     } cliente;
     
+    /* CRIAR VARIAVEIS DESSE TIPP PARA CADA CLIENTE */
     cliente c1;
     cliente c2;
     cliente c3;
     cliente fila [100];
     
+    /* ATRINUIÇÃO DE VALORES 
+    CADA VARIALVEL TEM SEU PRORRIO VALOR*/
+    
+    
     c1.mesa = 5;
     c1.total = 39.90;
     c1.pedido = 103;
     
+     /* LEITURA DOS VALORES */
+    
     printf ("mesa: %d \n", c1.mesa);
     printf("total: R$ %.2f\n", c1.total);
+    printf ("numero do pedido: %d \n", c1.pedido);
+    
+    
+     /* ATRINUIÇÃO DE VALORES
+     CADA VARIAVEL TEM SEU PROPRIO VALOR*/
     
     c2.mesa = 8;
     c2.total = 22.50;
     c2.pedido = 200;
     
+    
+     /* LEITURA DOS VALORES */
+     
+     
     printf ("mesa: %d \n", c2.mesa);
     printf("total: R$ %.2f\n", c2.total);
+    printf ("numero do pedido: %d \n", c2.pedido);
+    
+    
+     /* ATRINUIÇÃO DE VALORES
+     CADA VARIAVEL TEM SEU PROPRIO VALOR*/
     
     c3.mesa = 10;
     c3.total = 60.90;
     c3.pedido = 390;
     
+     /* LEITURA DOS VALORES */
+    
     printf ("mesa: %d \n", c3.mesa);
     printf("total: R$ %.2f\n", c3.total);
-    
+    printf ("numero do pedido: %d \n", c3.pedido);
 
     return 0;
 }
