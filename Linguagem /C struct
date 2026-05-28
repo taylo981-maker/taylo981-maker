@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+int main()
+{
+   
+    typedef struct {
+        char nome [50];
+        int mesa;
+        float total;
+        int pedido;
+        
+    } cliente;
+    
+    cliente c1;
+    cliente c2;
+    cliente c3;
+    cliente fila [100];
+    
+    c1.mesa = 5;
+    c1.total = 39.90;
+    c1.pedido = 103;
+    
+    printf ("mesa: %d \n", c1.mesa);
+    printf("total: R$ %.2f\n", c1.total);
+    
+    c2.mesa = 8;
+    c2.total = 22.50;
+    c2.pedido = 200;
+    
+    printf ("mesa: %d \n", c2.mesa);
+    printf("total: R$ %.2f\n", c2.total);
+    
+    c3.mesa = 10;
+    c3.total = 60.90;
+    c3.pedido = 390;
+    
+    printf ("mesa: %d \n", c3.mesa);
+    printf("total: R$ %.2f\n", c3.total);
+    
+
+    return 0;
+}
