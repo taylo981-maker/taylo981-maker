@@ -1,0 +1,71 @@
+#include <stdio.h>
+#define MAX 10
+
+typedef struct {
+    int dados [MAX];  /* OS ELEMENTOS */
+    int topo;  /*indice do topo */
+} pilha;  /* -1 = VAZIO */
+
+
+/* INICIALIZAÇÃO DA PILHA */
+
+void inicializar(pilha *p) {
+    p->topo = -1;
+}
+
+
+/* VERIFICAR SE ESTAR VAZIA */
+
+int estarVazia (pilha *p){
+    return p->topo == -1;
+}
+
+/* VEROFOCAR SE ESTAR CHEIO */
+
+int estarCheio (pilha *p){
+    return p->topo == MAX - 1;
+}
+
+
+/* EMPILHA */
+
+
+void push (pilha *p, int valor){
+    if (estarCheio(p)) 
+    return;
+    
+    p->dados[++p-> topo] = valor;
+}
+
+
+/* DESEMPILHAR */ 
+
+
+int pop (pilha *p) {
+    if (estarVazia(p)) 
+    return -1;
+    
+    return p->dados[p-> topo --];
+    
+}
+
+
+/* CONSULKTAR O TOPO*/ 
+
+int peak (pilha *p) {
+    if (estarVazia(p)) return -1;
+    return p->dados [p->topo];
+}
+
+/* USO */
+
+
+int main (){
+pilha p;
+
+inicializar (&p);
+push (&p, 10 ); push (&p, 20);
+printf ("%d\n", pop (&p));  /* 20 */
+
+    return 0;
+}
