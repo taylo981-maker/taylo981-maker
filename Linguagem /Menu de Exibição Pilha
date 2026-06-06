@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 5
+#define TIPO_HISTORICO 1
+#define TIPO_LIXEIRA 2
+
+/* Estrutura para os itens da pilha auxiliar (guarda o valor e a origem) */
+
+
+int principal[MAX];
+int topoP = -1;
+
+/* Pilha 2: Auxiliar (guarda histórico e lixeira) */
+int auxiliar[MAX];
+int topoA = -1;
+
+/* Funções Básicas da Pilha Principal */
+void push(int valor) {
+    if (topoP < MAX - 1) {
+        topoP++;
+        principal[topoP] = valor;
+    }
+}
+
+int pop() {
+    if (topoP == -1) return -1;
+    int valor = principal[topoP];
+    topoP--;
+    return valor;
+}
+
+/* OPERAÇÕES DO SISTEMA */
+
+/* Manda para o Histórico (guarda o número normal) */ 
+
+void deletarParaHistorico() {
+    int valor = pop();
+    if (valor != -1) {
+        topoA++;
+        auxiliar[topoA] = valor; // Número positivo = Histórico
+        printf("Item %d movido para o Historico.\n", valor);
+    }
+}
+
+// Manda para a Lixeira (guarda o número negativo)
+void deletarParaLixeira() {
+    int valor = pop();
+    if (valor != -1) {
+        topoA++;
+        auxiliar[topoA] = -valor; // Número negativo = Lixeira
+        printf("Item %d movido para a Lixeira.\n", valor);
+    }
+}
+
+// Mostra o que tem em cada lugar
+void mostrarResultados() {
+    printf("\n--- ESTADO ATUAL ---\n");
+    
+    // Mostra Principal
+    printf("Pilha Principal: ");
+    for(int i = 0; i <= topoP; i++) printf("%d ", principal[i]);
+    
+    // Mostra Histórico (valores positivos na auxiliar)
+    printf("\nHistorico: ");
+    for(int i = 0; i <= topoA; i++) {
+        if (auxiliar[i] > 0) printf("%d ", auxiliar[i]);
+    }
+    
+    // Mostra Lixeira (valores negativos na auxiliar invertidos para positivo)
+    printf("\nLixeira: ");
+    for(int i = 0; i <= topoA; i++) {
+        if (auxiliar[i] < 0) printf("%d ", -auxiliar[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    // Coloca elementos na pilha
+    push(10);
+    push(20);
+    push(30);
+    push(40);
+
+    // Testando as remoções
+    deletarParaLixeira();   // Remove o 40 e manda para a lixeira
+    deletarParaHistorico(); // Remove o 30 e manda para o histórico
+
+    mostrarResultados();
+
+    return 0;
+}
