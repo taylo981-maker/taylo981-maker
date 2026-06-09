@@ -1,0 +1,83 @@
+*******************************************************************************/
+#include <stdio.h>
+
+#define MAX 10
+
+typedef struct {
+    int dados[MAX];
+    int inicio;
+    int fim;
+    int tamanho;
+} fila;
+
+
+
+
+void inicializar(fila *f) {             /* Inicializar */
+    f->inicio = 0;
+    f->fim = 0;
+    f->tamanho = 0;
+}
+
+
+
+
+int estaVazio(fila *f) {                 /* Verificar se está vazia */
+    return f->tamanho == 0;
+}
+
+
+
+
+int estaCheio(fila *f) {                  /* Verificar se está cheia */
+    return f->tamanho == MAX;
+}
+
+
+
+void enqueue(fila *f, int valor) {        /* Enfileirar */
+    if (estaCheio(f))
+        return;
+
+    f->dados[f->fim] = valor;
+    f->fim = (f->fim + 1) % MAX;
+    f->tamanho++;
+}
+
+
+
+int dequeue(fila *f) {                   /* Desenfileirar */
+    if (estaVazio(f))
+        return -1;
+
+    int v = f->dados[f->inicio];
+    f->inicio = (f->inicio + 1) % MAX;
+    f->tamanho--;
+
+    return v;
+}
+
+
+
+int front(fila *f) {                    /* Primeiro elemento */
+    if (estaVazio(f))
+        return -1;
+
+    return f->dados[f->inicio];
+}
+
+
+int main() {
+    fila f;
+
+    inicializar(&f);
+
+    enqueue(&f, 10);
+    enqueue(&f, 20);
+    enqueue(&f, 30);
+
+    printf("Removido da fila:" "%d\n", dequeue(&f));  // 10
+    printf("Frente da fila:" "%d\n", front(&f));    // 20
+
+    return 0;
+}
