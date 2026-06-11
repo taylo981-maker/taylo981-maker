@@ -1,0 +1,79 @@
+#include <stdio.h>
+
+#define MAX 100
+
+typedef struct {
+    int dados[MAX];
+    int topo;
+} pilha;
+
+void inicializar(pilha *p) {
+    p->topo = -1;
+}
+
+int estarVazio(pilha *p) {
+    return p->topo == -1;
+}
+
+int estarCheio(pilha *p) {
+    return p->topo == MAX - 1;
+}
+
+void push(pilha *p, int valor) {
+    if (!estarCheio(p)) {
+        p->dados[++p->topo] = valor;
+    }
+}
+
+int pop(pilha *p) {
+    if (!estarVazio(p)) {
+        return p->dados[p->topo--];
+    }
+    return -1;
+}
+
+int main() {
+
+    pilha p;
+    inicializar(&p);
+
+    int n;
+
+    printf("Quantos numeros deseja digitar? ");
+    scanf("%d", &n);
+
+    if (n > MAX)
+        n = MAX;
+
+    int ori[n];
+
+    printf("Digite os numeros:\n");
+
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &ori[i]);
+        push(&p, ori[i]);
+    }
+
+    printf("\nSequencia original:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", ori[i]);
+    }
+
+    printf("\n\nSequencia invertida:\n");
+
+    int soma = 0;
+    int valor;
+
+    while (!estarVazio(&p)) {
+        valor = pop(&p);
+        printf("%d ", valor);
+        soma += valor;
+    }
+
+    float media = (n > 0) ? (float)soma / n : 0;
+
+    printf("\n\nSoma = %d", soma);
+    printf("\nMedia = %.2f\n", media);
+
+    return 0;
+}
