@@ -1,0 +1,112 @@
+#include <stdio.h>
+
+// Função para ordenar os pedidos (Bubble Sort)
+void bubbleSort(int pedidos[], int tam)
+{
+    int i, j, aux;
+
+    // Percorre o vetor
+    for(i = 0; i < tam - 1; i++)
+    {
+        // Compara um elemento com o próximo
+        for(j = 0; j < tam - 1; j++)
+        {
+            // Se estiver fora de ordem, troca
+            if(pedidos[j] > pedidos[j + 1])
+            {
+                aux = pedidos[j];
+                pedidos[j] = pedidos[j + 1];
+                pedidos[j + 1] = aux;
+            }
+        }
+    }
+}
+
+// Função para procurar um pedido usando Busca Binária
+int buscaBinaria(int pedidos[], int tam, int alvo)
+{
+    int inicio = 0;
+    int fim = tam - 1;
+    int meio;
+
+    while(inicio <= fim)
+    {
+        meio = (inicio + fim) / 2;
+
+        if(pedidos[meio] == alvo)
+        {
+            return meio;
+        }
+
+        if(alvo > pedidos[meio])
+        {
+            inicio = meio + 1;
+        }
+        else
+        {
+            fim = meio - 1;
+        }
+    }
+
+    return -1;
+}
+
+int main()
+{
+    // Vetor de pedidos
+    int pedidos[8] = {47, 12, 83, 5, 29, 61, 74, 38};
+
+    int i;
+    int pedido;
+    int posicao;
+    int contador = 0;
+
+    printf("=== BYTE BURGER - SISTEMA DE PEDIDOS ===\n\n");
+
+    // Mostrar pedidos recebidos
+    printf("Pedidos recebidos:\n");
+    for(i = 0; i < 8; i++)
+    {
+        printf("%d ", pedidos[i]);
+    }
+
+    // Ordenar os pedidos
+    bubbleSort(pedidos, 8);
+
+    // Mostrar pedidos ordenados
+    printf("\n\nPedidos ordenados:\n");
+    for(i = 0; i < 8; i++)
+    {
+        printf("%d ", pedidos[i]);
+    }
+
+    // Fazer buscas até digitar 0
+    while(1)
+    {
+        printf("\n\nDigite o numero do pedido (0 para sair): ");
+        scanf("%d", &pedido);
+
+        if(pedido == 0)
+        {
+            break;
+        }
+
+        contador++;
+
+        posicao = buscaBinaria(pedidos, 8, pedido);
+
+        if(posicao != -1)
+        {
+            printf("Pedido %d encontrado na posicao %d.\n", pedido, posicao);
+        }
+        else
+        {
+            printf("Pedido %d nao encontrado.\n", pedido);
+        }
+    }
+
+    printf("\nForam realizadas %d busca(s).\n", contador);
+    printf("Bom apetite!\n");
+
+    return 0;
+}
