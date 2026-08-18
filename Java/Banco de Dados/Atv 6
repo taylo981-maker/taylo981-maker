@@ -1,0 +1,13 @@
+
+public class Principal {
+    public static void main(String[] args) {
+      Scanner scanner = new Scanner(System.in);
+
+      System.out.print("Digite sua data de nascimento: ");
+        int nac = scanner.nextInt();
+        int idade = 2026 - nac;
+      
+      System.out.println("Sua idade é " + idade + "!");
+        scanner.close();
+    }
+}
