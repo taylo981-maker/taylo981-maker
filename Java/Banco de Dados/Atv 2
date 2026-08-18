@@ -1,0 +1,47 @@
+import java.util.Scanner; // 0. Importa a classe Scanner
+
+public class Principal {
+    public static void main(String[] args) {
+        // 1. Cria o objeto Scanner para ler o teclado
+        Scanner scanner = new Scanner(System.in);
+
+        //2. Lendo os números
+        System.out.print("Digite o primeiro número inteiro: ");
+        int num = scanner.nextInt();
+
+        System.out.print("Digite o segundo número inteiro: ");
+        int num2 = scanner.nextInt();
+        scanner.nextLine();
+  
+        //3. Calculadora
+        System.out.println("\n-==CALCULADORA==-");
+        System.out.println("+ - * / %");
+        System.out.print("\nEscolha uma das operações: ");
+        String escolha = scanner.nextLine();
+
+        //4. Cria uma estrutura de decisão com switch
+
+        switch (escolha) {
+          case "+":
+          System.out.println("A soma do primeiro e segundo número é: " + (num + num2));  
+            break;
+          case "-":
+          System.out.println("A subtração do primeiro e segundo número é: " + (num - num2)); 
+            break;
+          case "*":
+          System.out.println("A multiplicação do primeiro e segundo número é: " + (num * num2));   
+            break;
+          case "/":
+          System.out.println("A divisão do primeiro e segundo número é: " + (num / num2));   
+            break;
+          case "%":
+          System.out.println("O resto da divisão do primeiro e segundo número é: " + (num % num2)); 
+            break;  
+          default:
+          System.out.println("Operação inválida.");
+        }
+
+
+        
+    }
+}
