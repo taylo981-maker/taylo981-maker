@@ -1,0 +1,15 @@
+import java.util.Scanner; // 0. Importa a classe Scanner
+
+public class Principal {
+    public static void main(String[] args) {
+      Scanner scanner = new Scanner(System.in);
+
+      System.out.print("Digite um numero: ");
+        int num = scanner.nextInt();
+
+     System.out.println("O seu número é " + num + ".");
+    System.out.println("\nO número antecessor do seu número é " + --num + ".");
+    System.out.println("O número sucessor do seu número é " + ++num + ".");
+    
+    }
+}
