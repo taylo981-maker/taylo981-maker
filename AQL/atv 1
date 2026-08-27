@@ -1,0 +1,19 @@
+DROP DATABASE PRODUTORA;
+
+CREATE DATABASE PRODDUTORA;
+
+USE PRODUTORA;
+
+CREATE TABLE DJs (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    estilo VARCHAR(50),
+    idade INT
+);
+
+INSERT INTO DJs (nomes , estilo , idade) values (" DJ Boto " , "house " , " 18 ");
+
+INSERT INTO DJs (nomes , estilo , idade) values (" DJ Akon " , "crack " , " 32 ");
+
+SHOW TABLES;
+DESCRIBE DJs;
