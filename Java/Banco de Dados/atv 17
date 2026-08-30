@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class Exercicio09 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o nome do vendedor: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Digite o salário fixo: R$ ");
+        double salarioFixo = scanner.nextDouble();
+
+        System.out.print("Digite o total de vendas do mês: R$ ");
+        double vendas = scanner.nextDouble();
+
+        double comissao = vendas * 0.15;
+        double salarioFinal = salarioFixo + comissao;
+
+        System.out.println("\n--- Dados do Vendedor ---");
+        System.out.println("Nome: " + nome);
+        System.out.printf("Salário fixo: R$ %.2f%n", salarioFixo);
+        System.out.printf("Comissão: R$ %.2f%n", comissao);
+        System.out.printf("Salário final: R$ %.2f%n", salarioFinal);
+
+        scanner.close();
+    }
+}
