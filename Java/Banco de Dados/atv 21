@@ -1,0 +1,18 @@
+public class Exercicio13 {
+    public static void main(String[] args) {
+
+        int soma = 0;
+
+        System.out.println("Números pares entre 85 e 907:");
+
+        for (int numero = 85; numero <= 907; numero++) {
+
+            if (numero % 2 == 0) {
+                System.out.println(numero);
+                soma += numero;
+            }
+        }
+
+        System.out.println("\nSoma de todos os números pares: " + soma);
+    }
+}
