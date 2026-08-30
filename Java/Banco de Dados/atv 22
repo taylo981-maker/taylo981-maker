@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class Exercicio14 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String nomeMaisPesada = "";
+        double maiorPeso = 0;
+
+        String nomeMaisAlta = "";
+        double maiorAltura = 0;
+
+        for (int i = 1; i <= 20; i++) {
+
+            System.out.println("\nPessoa " + i);
+
+            System.out.print("Digite o nome: ");
+            String nome = scanner.nextLine();
+
+            System.out.print("Digite a altura (em metros): ");
+            double altura = scanner.nextDouble();
+
+            System.out.print("Digite o peso (em kg): ");
+            double peso = scanner.nextDouble();
+
+            scanner.nextLine();
+
+            if (peso > maiorPeso) {
+                maiorPeso = peso;
+                nomeMaisPesada = nome;
+            }
+
+            if (altura > maiorAltura) {
+                maiorAltura = altura;
+                nomeMaisAlta = nome;
+            }
+        }
+
+        System.out.println("\n--- RESULTADO ---");
+
+        System.out.println("\nPessoa mais pesada:");
+        System.out.println("Nome: " + nomeMaisPesada);
+        System.out.println("Peso: " + maiorPeso + " kg");
+
+        System.out.println("\nPessoa mais alta:");
+        System.out.println("Nome: " + nomeMaisAlta);
+        System.out.println("Altura: " + maiorAltura + " m");
+
+        scanner.close();
+    }
+}
