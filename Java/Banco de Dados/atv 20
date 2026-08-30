@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+public class Exercicio12 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int somaPositivos = 0;
+        int quantidadeNegativos = 0;
+
+        for (int i = 1; i <= 50; i++) {
+            System.out.print("Digite o " + i + "º número: ");
+            int numero = scanner.nextInt();
+
+            if (numero > 0) {
+                somaPositivos += numero;
+            } else if (numero < 0) {
+                quantidadeNegativos++;
+            }
+        }
+
+        System.out.println("\nSoma dos números positivos: " + somaPositivos);
+        System.out.println("Quantidade de números negativos: " + quantidadeNegativos);
+
+        scanner.close();
+    }
+}
