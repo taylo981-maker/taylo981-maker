@@ -1,0 +1,84 @@
+import java.util.*;
+
+public class CAPA;
+
+ private string cor;
+ private string material;
+ private double preço;
+
+ public CAPA ( string cor , string material , double preço) {
+  this.cor = cor;
+  this.material = material;
+  this.preço = preço;
+  }
+  public string getcor(){
+   return cor;
+   }
+    public string getmaterial(){
+     return material;
+     }
+      public double getpreço(){
+       return preço;
+       }
+
+ public class Celular {
+  private string marca;
+  private string modelo;
+  private string cor;
+  private string valor;
+  private string capa;
+  }
+   public Celular (string marca, string modelo, string cor, string valor, string capa) {
+    this.marca = marca;
+    this.modelo = modelo;
+    this.cor = cor;
+    this.valor = valor;
+    this.capa = capa;
+   }
+
+   // METODO QUE CALCULA O VALOR DO CELULAR + CAPA//
+    
+     public double calucularValorTotal() {
+      return valor + capa.getPreço();
+     }
+      public string getmarca(){
+        return marca;
+      }
+       public string getmodelo(){
+        return modelo;
+       }
+        public string getcor(){
+          return cor;
+        }
+         public string getvalor(){
+          return valor;
+         }
+          public string getcapa(){
+            return capa;
+          }
+
+          public class main {
+            public static void main(string[] args) {
+
+              // CRIANDO E TESTANDO UMA CAPA//
+              capa capa = new capa ( " verde " , " plastico " , 50.00);
+
+              // CRIAMDP E TESTANDO UM CELULAR//
+              celular celular = new celular(
+                " motorola", "moto g " , "preto" , 120.00 , capa
+              );
+
+              // CALCULANDO O VALOR TOTAL 
+              double valortotal = celular.calucularValorTotal();
+
+              //IMPRIMIR O RESULTADO//
+              system.out.printf(
+                " O valor total de comprar %s %s com capa %s de %s ficou de R$ %.2F%n" , 
+                celular.getmarca(),
+                celular.getmodelo(),
+                celular.getcapa().getcor(),
+                celular.getcapa().getmaterial(),
+                valortotal
+              );
+            }
+          }
