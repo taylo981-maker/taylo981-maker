@@ -1,4 +1,6 @@
-public class Main {
+import java.util.*;
+
+public class CAPA {
 
     static class Capa {
         private String cor;
