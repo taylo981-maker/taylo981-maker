@@ -1,84 +1,96 @@
-import java.util.*;
+public class Main {
 
-public class CAPA;
+    static class Capa {
+        private String cor;
+        private String material;
+        private double preco;
 
- private string cor;
- private string material;
- private double preço;
-
- public CAPA ( string cor , string material , double preço) {
-  this.cor = cor;
-  this.material = material;
-  this.preço = preço;
-  }
-  public string getcor(){
-   return cor;
-   }
-    public string getmaterial(){
-     return material;
-     }
-      public double getpreço(){
-       return preço;
-       }
-
- public class Celular {
-  private string marca;
-  private string modelo;
-  private string cor;
-  private string valor;
-  private string capa;
-  }
-   public Celular (string marca, string modelo, string cor, string valor, string capa) {
-    this.marca = marca;
-    this.modelo = modelo;
-    this.cor = cor;
-    this.valor = valor;
-    this.capa = capa;
-   }
-
-   // METODO QUE CALCULA O VALOR DO CELULAR + CAPA//
-    
-     public double calucularValorTotal() {
-      return valor + capa.getPreço();
-     }
-      public string getmarca(){
-        return marca;
-      }
-       public string getmodelo(){
-        return modelo;
-       }
-        public string getcor(){
-          return cor;
+        public Capa(String cor, String material, double preco) {
+            this.cor = cor;
+            this.material = material;
+            this.preco = preco;
         }
-         public string getvalor(){
-          return valor;
-         }
-          public string getcapa(){
+
+        public String getCor() {
+            return cor;
+        }
+
+        public String getMaterial() {
+            return material;
+        }
+
+        public double getPreco() {
+            return preco;
+        }
+    }
+
+    static class Celular {
+        private String marca;
+        private String modelo;
+        private String cor;
+        private double valor;
+        private Capa capa;
+
+        public Celular(
+                String marca,
+                String modelo,
+                String cor,
+                double valor,
+                Capa capa
+        ) {
+            this.marca = marca;
+            this.modelo = modelo;
+            this.cor = cor;
+            this.valor = valor;
+            this.capa = capa;
+        }
+
+        // Calcula o preço do celular somado ao preço da capa
+        public double calcularValorTotal() {
+            return valor + capa.getPreco();
+        }
+
+        public String getMarca() {
+            return marca;
+        }
+
+        public String getModelo() {
+            return modelo;
+        }
+
+        public String getCor() {
+            return cor;
+        }
+
+        public double getValor() {
+            return valor;
+        }
+
+        public Capa getCapa() {
             return capa;
-          }
+        }
+    }
 
-          public class main {
-            public static void main(string[] args) {
+    public static void main(String[] args) {
+        Capa capa = new Capa("verde", "plástico", 50.00);
 
-              // CRIANDO E TESTANDO UMA CAPA//
-              capa capa = new capa ( " verde " , " plastico " , 50.00);
+        Celular celular = new Celular(
+                "Motorola",
+                "Moto G",
+                "preto",
+                120.00,
+                capa
+        );
 
-              // CRIAMDP E TESTANDO UM CELULAR//
-              celular celular = new celular(
-                " motorola", "moto g " , "preto" , 120.00 , capa
-              );
+        double valorTotal = celular.calcularValorTotal();
 
-              // CALCULANDO O VALOR TOTAL 
-              double valortotal = celular.calucularValorTotal();
-
-              //IMPRIMIR O RESULTADO//
-              system.out.printf(
-                " O valor total de comprar %s %s com capa %s de %s ficou de R$ %.2F%n" , 
-                celular.getmarca(),
-                celular.getmodelo(),
-                celular.getcapa().getcor(),
-                celular.getcapa().getmaterial(),
-                valortotal
-              );
-            }
-          }
+        System.out.printf(
+                "O valor total de comprar %s %s com capa %s de %s ficou em R$ %.2f%n",
+                celular.getMarca(),
+                celular.getModelo(),
+                celular.getCapa().getCor(),
+                celular.getCapa().getMaterial(),
+                valorTotal
+        );
+    }
+}
