@@ -1,0 +1,99 @@
+public class COMPUTADOR {
+
+    static class Monitor {
+        private double tamanho;
+        private String tipoTela;
+        private double preco;
+
+        public Monitor(double tamanho, String tipoTela, double preco) {
+            this.tamanho = tamanho;
+            this.tipoTela = tipoTela;
+            this.preco = preco;
+        }
+
+        public double getTamanho() {
+            return tamanho;
+        }
+
+        public String getTipoTela() {
+            return tipoTela;
+        }
+
+        public double getPreco() {
+            return preco;
+        }
+    }
+
+    static class Computador {
+        private String marca;
+        private String cor;
+        private String modelo;
+        private double valor;
+        private Monitor monitor;
+
+        public Computador(
+                String marca,
+                String cor,
+                String modelo,
+                double valor,
+                Monitor monitor
+        ) {
+            this.marca = marca;
+            this.cor = cor;
+            this.modelo = modelo;
+            this.valor = valor;
+            this.monitor = monitor;
+        }
+
+        // Soma o valor do computador com o preço do monitor
+        public double calcularValorTotal() {
+            return valor + monitor.getPreco();
+        }
+
+        public String getMarca() {
+            return marca;
+        }
+
+        public String getCor() {
+            return cor;
+        }
+
+        public String getModelo() {
+            return modelo;
+        }
+
+        public double getValor() {
+            return valor;
+        }
+
+        public Monitor getMonitor() {
+            return monitor;
+        }
+    }
+
+    public static void main(String[] args) {
+        Monitor monitor = new Monitor(
+                24,
+                "LED",
+                700.00
+        );
+
+        Computador computador = new Computador(
+                "Dell",
+                "preto",
+                "Inspiron",
+                2800.00,
+                monitor
+        );
+
+        double valorTotal = computador.calcularValorTotal();
+
+        System.out.printf(
+                "O valor total do computador %s com o monitor de %.0f polegadas %s ficou de: R$%.1f%n",
+                computador.getMarca(),
+                computador.getMonitor().getTamanho(),
+                computador.getMonitor().getTipoTela(),
+                valorTotal
+        );
+    }
+}
