@@ -1,0 +1,41 @@
+import java.util.*;
+
+ class contabancaria{
+private String titular;
+  private double saldo;
+
+  public contabancaria (String titular, double saldo){
+    this.titular = titular;
+    setsaldototal(saldo);
+  }
+   public String gettitular(){
+     return titular;
+   }
+    public void settitular(String titular){
+     this.titular = titular;
+    }
+     public double getsaldodaConta(){
+      return this.saldo;
+     }
+       public void setsaldototal ( double saldo){
+        if (saldo < 0) {
+           System.out.println(" SALDO INVÁLIDO, seu pobre");
+           this.saldo = 0;
+        } else {
+           this.saldo = saldo;
+        }
+        }
+        public void DadosdoBanco(){
+          System.out.println("titular"  + titular);
+          System.out.println("saldo"  + saldo);
+  }
+}
+
+public class main {
+  public static void main (String[] args) {
+     contabancaria conta = new contabancaria ("TAYLO", 10.000);
+      conta.DadosdoBanco();
+      conta.setsaldototal(-500);
+      conta.DadosdoBanco();
+  }
+}
