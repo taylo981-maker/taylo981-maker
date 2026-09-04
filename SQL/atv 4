@@ -1,1 +1,59 @@
+DROP DATABASE IF EXISTS LICENCIAMENTO;
 
+CREATE DATABASE LICENCIAMENTO;
+
+USE LICENCIAMENTO;
+
+-- TABELA CLIENTE
+CREATE TABLE cliente (
+    idcliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    cpf BIGINT
+);
+
+-- TABELA PEDIDO
+CREATE TABLE pedido (
+    idpedido INT PRIMARY KEY AUTO_INCREMENT,
+    idcliente INT,
+    data_pedido DATE,
+    valor_total DECIMAL(10,2),
+    FOREIGN KEY (idcliente) REFERENCES cliente(idcliente)
+);
+
+-- TABELA ANOTAÇÃO DO PEDIDO
+CREATE TABLE anotacao_pedido (
+    idanotacao INT PRIMARY KEY AUTO_INCREMENT,
+    idpedido INT,
+    data_anotacao DATE,
+    FOREIGN KEY (idpedido) REFERENCES pedido(idpedido)
+);
+
+-- INSERINDO CLIENTES
+INSERT INTO cliente (nome, email, cpf)
+VALUES
+('JOAO PEDRO', 'joao@gmail.com', 43243543),
+('CARLOS DA SILVA', 'carlos@gmail.com', 56435643),
+('DALILA MONTEIRO', 'dalila@gmail.com', 645645645);
+
+-- INSERINDO PEDIDOS
+INSERT INTO pedido (idcliente, data_pedido, valor_total)
+VALUES
+(1, '2026-09-01', 25.00),
+(1, '2026-02-02', 40.00),
+(2, '2026-08-03', 18.00);
+
+-- MOSTRAR TODOS OS CLIENTES
+SELECT * FROM cliente;
+
+-- MOSTRAR TODOS OS PEDIDOS
+SELECT * FROM pedido;
+
+-- MOSTRAR CLIENTES E SEUS PEDIDOS
+SELECT 
+    cliente.nome,
+    pedido.data_pedido,
+    pedido.valor_total
+FROM cliente
+INNER JOIN pedido 
+    ON cliente.idcliente = pedido.idcliente;
