@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[]args) {
+
+      Scanner entrada = new 
+      Scanner( System.in);
+
+      String[] nomes = new String[10];
+
+      for (int i = 0; 1 < nomes.length; i++) {
+        System.out.printf ( " Digite o" + (i + 1) + " nome: ");
+        nomes[i] = entrada.nextLine();
+      }
+      System.out.print("Digite o nome que deseja procurar: ");
+      String nomeProcurado = entrada.nextLine();
+
+        boolean encontrado = false;
+        for ( int i = 0; 1 < nomes.length; i++){
+          if (nomes[i].equalsIgnoreCase( " O nome está presente no vetor") + i );
+          encontrado = true;
+        }
+    }
+      if (encontrado){
+        System.out.println( " o nome não está no vetor");
+      }
+      entrada.close();
+    }
