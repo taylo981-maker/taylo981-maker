@@ -1,0 +1,64 @@
+import java.util.*;
+
+abstract class Medico {
+    String nome, crm;
+    double salario;
+
+    Medico(String n, String c, double s) {
+        nome=n; crm=c; salario=s;
+    }
+
+    abstract double aposentadoria();
+}
+
+class Cirurgiao extends Medico {
+    Cirurgiao(String n,String c,double s){super(n,c,s);}
+    double aposentadoria(){return salario*0.8+800;}
+}
+
+class Auxiliar extends Medico {
+    Auxiliar(String n,String c,double s){super(n,c,s);}
+    double aposentadoria(){return salario*0.8;}
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Scanner sc=new Scanner(System.in);
+    ArrayList<Medico> lista=new ArrayList<>();
+        int op;
+
+do {
+  System.out.println("\n1-Cadastrar\n2-Listar\n3-Buscar\n4-Remover\n5-Sair!");
+  op=sc.nextInt(); sc.nextLine();
+
+  if(op==1){
+    System.out.print("Nome: "); String n=sc.nextLine();
+    System.out.print("CRM: "); String c=sc.nextLine();
+    System.out.print("Salário: "); double s=sc.nextDouble();
+    System.out.print("1-Cirurgião 2-Auxiliar: ");
+    int t=sc.nextInt();
+
+    lista.add(t==1 ? new Cirurgiao(n,c,s) : new Auxiliar(n,c,s));
+
+    }else if(op==2){
+      for(Medico m:lista)
+      System.out.println(m.nome+" | "+m.crm+" | R$ "+m.aposentadoria());
+
+    }else if(op==3){
+      System.out.print("CRM: "); String c=sc.nextLine();
+      for(Medico m:lista)
+      if(m.crm.equals(c))
+      System.out.println(m.nome+" | R$ "+m.aposentadoria());
+
+      }else if(op==4){
+      System.out.print("CRM: "); String c=sc.nextLine();
+      lista.removeIf(m->m.crm.equals(c));
+            }
+
+        }while(op!=5);
+
+        sc.close();
+    }
+}
+
+
