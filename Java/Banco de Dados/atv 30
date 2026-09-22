@@ -1,0 +1,180 @@
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+abstract class Professor {
+    private String matricula, nome;
+    private double salario;
+    private static int totalProfessores = 0;
+
+    Professor(String matricula, String nome, double salario) {
+        this.matricula = matricula;
+        this.nome = nome;
+        this.salario = salario;
+        totalProfessores++;
+    }
+
+    public String getMatricula() { return matricula; }
+    public String getNome() { return nome; }
+    public double getSalario() { return salario; }
+
+    public static int getTotalProfessores() {
+        return totalProfessores;
+    }
+
+    abstract double calcularSalarioFinal();
+
+    public void mostrarDados() {
+        System.out.println("Matrícula: " + matricula);
+        System.out.println("Nome: " + nome);
+        System.out.println("Salário final: R$ " + calcularSalarioFinal());
+    }
+}
+
+class ProfessorTitular extends Professor {
+    private int horasPesquisa;
+
+    ProfessorTitular(String m, String n, double s, int h) {
+        super(m, n, s);
+        horasPesquisa = h;
+    }
+
+    double calcularSalarioFinal() {
+        if (horasPesquisa >= 20)
+            return getSalario() + 1200;
+        return getSalario();
+    }
+}
+
+class ProfessorSubstituto extends Professor {
+    ProfessorSubstituto(String m, String n, double s) {
+        super(m, n, s);
+    }
+
+    double calcularSalarioFinal() {
+        return getSalario();
+    }
+}
+
+class Universidade {
+    private ArrayList<Professor> professores = new ArrayList<>();
+
+    public void adicionarProfessor(Professor p) {
+        professores.add(p);
+        System.out.println("Professor cadastrado!");
+    }
+
+    public void buscarProfessor(String matricula) {
+        for (Professor p : professores) {
+            if (p.getMatricula().equals(matricula)) {
+                p.mostrarDados();
+                return;
+            }
+        }
+        System.out.println("Professor não encontrado!");
+    }
+
+    public void removerProfessor(String matricula) {
+        for (Professor p : professores) {
+            if (p.getMatricula().equals(matricula)) {
+                professores.remove(p);
+                System.out.println("Professor removido!");
+                return;
+            }
+        }
+        System.out.println("Professor não encontrado!");
+    }
+
+    public void listarProfessores() {
+        for (Professor p : professores) {
+            p.mostrarDados();
+            System.out.println("----------------");
+        }
+    }
+
+    public void estatisticas() {
+        System.out.println("Total de professores: "
+                + Professor.getTotalProfessores());
+
+        System.out.println("Professores cadastrados: "
+                + professores.size());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Universidade uni = new Universidade();
+        int opcao;
+
+        do {
+            System.out.println("\n1 - Cadastrar professor");
+            System.out.println("2 - Buscar professor");
+            System.out.println("3 - Remover professor");
+            System.out.println("4 - Listar professores");
+            System.out.println("5 - Estatísticas");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha: ");
+            opcao = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Matrícula: ");
+                    String m = sc.nextLine();
+
+                    System.out.print("Nome: ");
+                    String n = sc.nextLine();
+
+                    System.out.print("Salário: ");
+                    double s = sc.nextDouble();
+
+                    System.out.println("1 - Titular");
+                    System.out.println("2 - Substituto");
+                    int tipo = sc.nextInt();
+
+                    if (tipo == 1) {
+                        System.out.print("Horas de pesquisa: ");
+                        int h = sc.nextInt();
+
+                        uni.adicionarProfessor(
+                            new ProfessorTitular(m, n, s, h));
+                    } else if (tipo == 2) {
+                        uni.adicionarProfessor(
+                            new ProfessorSubstituto(m, n, s));
+                    } else {
+                        System.out.println("Tipo inválido!");
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Matrícula: ");
+                    uni.buscarProfessor(sc.nextLine());
+                    break;
+
+                case 3:
+                    System.out.print("Matrícula: ");
+                    uni.removerProfessor(sc.nextLine());
+                    break;
+
+                case 4:
+                    uni.listarProfessores();
+                    break;
+
+                case 5:
+                    uni.estatisticas();
+                    break;
+
+                case 0:
+                    System.out.println("Encerrando...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
+
+        } while (opcao != 0);
+
+        sc.close();
+    }
+}
