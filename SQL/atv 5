@@ -1,0 +1,37 @@
+CREATE TABLE servicos (
+id_servico INT auto_increment PRIMARY KEY,
+nome VARCHAR(100) NOT NULL UNIQUE,
+descricao VARCHAR (255), status enum ('ativo','inativo') NOT NULL DEFAULT 'ativo');
+
+	CREATE TABLE plano_servicos( 
+    id_planos INT NOT NULL,
+    id_servicos INT NOT NULL,
+    primary key (id_plano, id_servicos),
+    
+    constraint
+    fk_plano_servicos_planos 
+		foreign key (id_plano)
+        references
+	planos(id_planos)
+		on delete cascade
+        on update cascade,
+        
+	constraint
+    fk_plano_servico
+		foreign key(id_servicos)
+        references
+	servicos(id_servicos)
+		on delete cascade
+        on delete cascade
+        );
+        
+        INSERT INTO servicos (nome, descricao) values 
+        ('Musculação', 'Treinamento de Força','Desenvolvimento Muscular'),
+		('Yoga', 'Aula de Yoga', 'Flexibilidade' , 'relaxamento'),
+        ('Natação', 'Aula de Natação para Diferentes Níveis'),
+        ('Pilates', 'Exarcicícios de Fortalecimento'),
+        ('Treinamento Funcional', 'Exercicios funcional para condicionamente fisico'),
+        
+        INSERT INTO plano_servicos )id_plano,id_servico)values(1,1);
+        
+        INSERT into 
