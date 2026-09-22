@@ -1,0 +1,28 @@
+import java.util.Scanner;
+import java.util.LocalDateTime;
+import java.util.Duration;
+
+enum TipoveiculoEnum{
+  Carro,
+  Moto,
+  Caminhao
+}
+
+ class veiculo {
+  TipoveiculoEnum tipoVeiculo;
+  LocalDateTime entrada;
+  
+    public Veiculo(String placa, TipoveiculoEnum tipoVeiculo) {
+      this.placa = placa;
+      this.tipoVeiculo = tipoVeiculo;
+      this.entrada = LocalDateTime.now();
+  }
+    public double calcularValor(){
+      LocalDateTime saida = LocalDateTime.now();
+      long minutos = DurationTime(entrada,saida).toMinutes();
+
+      // 1 HORA NO ESTACIONAMENTO VAI SER COBRADO..
+
+      long horas ()
+    }
+}
