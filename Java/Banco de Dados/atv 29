@@ -1,28 +1,129 @@
 import java.util.Scanner;
-import java.util.LocalDateTime;
-import java.util.Duration;
+import java.time.LocalDateTime;
+import java.time.Duration;
 
-enum TipoveiculoEnum{
-  Carro,
-  Moto,
-  Caminhao
+enum TipoVeiculoEnum {
+    CARRO,
+    MOTO,
+    CAMINHAO
 }
 
- class veiculo {
-  TipoveiculoEnum tipoVeiculo;
-  LocalDateTime entrada;
-  
-    public Veiculo(String placa, TipoveiculoEnum tipoVeiculo) {
-      this.placa = placa;
-      this.tipoVeiculo = tipoVeiculo;
-      this.entrada = LocalDateTime.now();
-  }
-    public double calcularValor(){
-      LocalDateTime saida = LocalDateTime.now();
-      long minutos = DurationTime(entrada,saida).toMinutes();
+class Veiculo {
 
-      // 1 HORA NO ESTACIONAMENTO VAI SER COBRADO..
+    String placa;
+    TipoVeiculoEnum tipoVeiculo;
+    LocalDateTime entrada;
 
-      long horas ()
+    public Veiculo(String placa, TipoVeiculoEnum tipoVeiculo) {
+        this.placa = placa;
+        this.tipoVeiculo = tipoVeiculo;
+        this.entrada = LocalDateTime.now();
+    }
+
+    public double calcularValor() {
+
+        LocalDateTime saida = LocalDateTime.now();
+
+        long minutos = Duration.between(
+            entrada,
+            saida
+        ).toMinutes();
+
+        // Cobra no mínimo 1 hora
+        long horas = (long) Math.ceil(minutos / 60.0);
+
+        if (horas == 0) {
+            horas = 1;
+        }
+
+        double valorPorHora;
+
+        switch (tipoVeiculo) {
+
+            case CARRO:
+                valorPorHora = 10.0;
+                break;
+
+            case MOTO:
+                valorPorHora = 5.0;
+                break;
+
+            case CAMINHAO:
+                valorPorHora = 20.0;
+                break;
+
+            default:
+                valorPorHora = 0;
+        }
+
+        return horas * valorPorHora;
+    }
+
+    public void mostrarDados() {
+
+        System.out.println("\n--- DADOS DO VEÍCULO ---");
+        System.out.println("Placa: " + placa);
+        System.out.println("Tipo: " + tipoVeiculo);
+        System.out.println("Entrada: " + entrada);
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== ESTACIONAMENTO ===");
+
+        System.out.print("Digite a placa: ");
+        String placa = scanner.nextLine();
+
+        System.out.println("\nEscolha o tipo do veículo:");
+        System.out.println("1 - Carro");
+        System.out.println("2 - Moto");
+        System.out.println("3 - Caminhão");
+
+        System.out.print("Digite a opção: ");
+        int opcao = scanner.nextInt();
+
+        TipoVeiculoEnum tipo;
+
+        switch (opcao) {
+
+            case 1:
+                tipo = TipoVeiculoEnum.CARRO;
+                break;
+
+            case 2:
+                tipo = TipoVeiculoEnum.MOTO;
+                break;
+
+            case 3:
+                tipo = TipoVeiculoEnum.CAMINHAO;
+                break;
+
+            default:
+                System.out.println("Tipo de veículo inválido!");
+                scanner.close();
+                return;
+        }
+
+        Veiculo v1 = new Veiculo(placa, tipo);
+
+        v1.mostrarDados();
+
+        System.out.println("\nVeículo registrado com sucesso!");
+
+        System.out.println("\nSimulando a saída do veículo...");
+
+        double valor = v1.calcularValor();
+
+        System.out.printf(
+            "Valor a pagar: R$ %.2f%n",
+            valor
+        );
+
+        scanner.close();
     }
 }
