@@ -1,0 +1,78 @@
+```java
+import java.util.*;
+
+enum Categoria {
+    SMARTPHONE, LAPTOP, TABLET
+}
+
+enum Estado {
+    NOVO, MOSTRUARIO, RECONDICIONADO
+}
+
+abstract class Produto {
+    String codigo;
+    String nome;
+    String marca;
+    double preco;
+    Categoria categoria;
+    Estado estado;
+
+    static int totalProdutos = 0;
+
+    Produto(String codigo, String nome, String marca, double preco,
+            Categoria categoria, Estado estado) {
+
+        if (codigo == null || codigo.isEmpty())
+            throw new IllegalArgumentException("Código inválido!");
+
+        if (preco <= 0)
+            throw new IllegalArgumentException("Preço inválido!");
+
+        this.codigo = codigo;
+        this.nome = nome;
+        this.marca = marca;
+        this.preco = preco;
+        this.categoria = categoria;
+        this.estado = estado;
+
+        totalProdutos++;
+    }
+
+    abstract void fichaTecnica();
+}
+
+class Smartphone extends Produto {
+    int bateria;
+    int armazenamento;
+
+    Smartphone(String codigo, String nome, String marca, double preco,
+               Estado estado, int bateria, int armazenamento) {
+
+        super(codigo, nome, marca, preco, Categoria.SMARTPHONE, estado);
+        this.bateria = bateria;
+        this.armazenamento = armazenamento;
+    }
+
+    void fichaTecnica() {
+        System.out.println("\n--- SMARTPHONE ---");
+        System.out.println("Código: " + codigo);
+        System.out.println("Nome: " + nome);
+        System.out.println("Marca: " + marca);
+        System.out.println("Preço: " + Util.formatar(preco));
+        System.out.println("Categoria: " + categoria);
+        System.out.println("Estado: " + estado);
+        System.out.println("Bateria: " + bateria + " mAh");
+        System.out.println("Armazenamento: " + armazenamento + " GB");
+    }
+}
+
+class Laptop extends Produto {
+    double tela;
+    String processador;
+
+    Laptop(String codigo, String nome, String marca, double preco,
+           Estado estado, double tela, String processador) {
+
+        super(codigo, nome, marca, preco, Categoria.LAPTOP, estado);
+        this.tela =
+```
