@@ -1,0 +1,318 @@
+public class Automoveis {
+
+public static String categoria(String categoria) {
+
+if (categoria.equals("CARRO") ||
+categoria.equals("CAMINHAO") ||
+categoria.equals("MOTO")) {
+return categoria;
+
+} else {
+throw new IllegalArgumentException("Categoria invalida!");
+}
+}
+
+public static String estado(String estado) {
+
+if (estado.equals("DISPONIVEL") ||
+estado.equals("EM MANUTENCAO") ||
+estado.equals("EM TRANSITO")) {
+
+return estado;
+
+} else {
+throw new IllegalArgumentException("Estado invalido!");
+}
+}
+
+public static void main(String[] args) {
+
+System.out.println(categoria("CARRO"));
+System.out.println(estado("DISPONIVEL"));
+
+}
+}
+
+public abstract class Veiculo {
+
+    private String codigo;
+    private String modelo;
+    private String marca;
+    private double valorDiario;
+    private String categoria;
+    private String estado;
+
+public Veiculo(String codigo, String modelo, String marca,
+double valorDiario, String categoria, String estado) {
+
+if (codigo == null || codigo.isEmpty()) {
+throw new IllegalArgumentException("O codigo nao pode ser vazio");
+}
+
+ if (valorDiario <= 0) {
+            throw new IllegalArgumentException("O valor da diaria deve ser maior que zero");
+}
+
+  this.codigo = codigo;
+  this.modelo = modelo;
+  this.marca = marca;
+  this.valorDiario = valorDiario;
+  this.categoria = categoria;
+  this.estado = estado;
+}
+
+public abstract void exibirFichaTecnica();
+
+public String getCodigo() {
+return codigo;
+}
+public String getModelo() {
+return modelo;
+}
+public String getMarca() {
+return marca;
+}
+public double getValorDiario() {
+return valorDiario;
+}
+public String getCategoria() {
+return categoria;
+}
+public String getEstado() {
+return estado;
+  }
+}
+
+
+import java.util.ArrayList;
+import java.util.Locale;
+import java.text.NumberFormat;
+
+// CLASSE BASE
+abstract class Veiculo {
+    private String codigo, modelo, marca, categoria, estado;
+    private double diaria;
+    private static int totalVeiculos = 0;
+
+    public Veiculo(String codigo, String modelo, String marca,
+                   double diaria, String categoria, String estado) {
+
+        if (codigo == null || codigo.trim().isEmpty()) {
+            throw new IllegalArgumentException("Codigo invalido!");
+        }
+
+        if (diaria <= 0) {
+            throw new IllegalArgumentException("Diaria invalida!");
+        }
+
+        this.codigo = codigo;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.diaria = diaria;
+        this.categoria = categoria;
+        this.estado = estado;
+
+        totalVeiculos++;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public double getDiaria() {
+        return diaria;
+    }
+
+    public void setDiaria(double diaria) {
+        if (diaria <= 0) {
+            throw new IllegalArgumentException("Diaria invalida!");
+        }
+        this.diaria = diaria;
+    }
+
+    public static int getTotalVeiculos() {
+        return totalVeiculos;
+    }
+
+    public void fichaTecnica() {
+        System.out.println("Codigo: " + codigo);
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Marca: " + marca);
+        System.out.println("Diaria: " + Utilitario.formatar(diaria));
+        System.out.println("Categoria: " + categoria);
+        System.out.println("Estado: " + estado);
+    }
+}
+
+// CLASSE CARRO
+class Carro extends Veiculo {
+    private double portaMalas;
+    private String combustivel;
+
+    public Carro(String codigo, String modelo, String marca,
+                 double diaria, String estado,
+                 double portaMalas, String combustivel) {
+
+        super(codigo, modelo, marca, diaria, "CARRO", estado);
+        this.portaMalas = portaMalas;
+        this.combustivel = combustivel;
+    }
+
+    @Override
+    public void fichaTecnica() {
+        System.out.println("\n--- CARRO ---");
+        super.fichaTecnica();
+        System.out.println("Porta-malas: " + portaMalas + " litros");
+        System.out.println("Combustivel: " + combustivel);
+    }
+}
+
+// CLASSE CAMINHAO
+class Caminhao extends Veiculo {
+    private double capacidadeCarga;
+    private int eixos;
+
+    public Caminhao(String codigo, String modelo, String marca,
+                    double diaria, String estado,
+                    double capacidadeCarga, int eixos) {
+
+        super(codigo, modelo, marca, diaria, "CAMINHAO", estado);
+        this.capacidadeCarga = capacidadeCarga;
+        this.eixos = eixos;
+    }
+
+    @Override
+    public void fichaTecnica() {
+        System.out.println("\n--- CAMINHAO ---");
+        super.fichaTecnica();
+        System.out.println("Capacidade de carga: " + capacidadeCarga + " toneladas");
+        System.out.println("Numero de eixos: " + eixos);
+    }
+}
+
+// FORMATADOR DE DINHEIRO
+class Utilitario {
+    public static String formatar(double valor) {
+        NumberFormat formato = NumberFormat.getCurrencyInstance(
+            new Locale("pt", "BR")
+        );
+        return formato.format(valor);
+    }
+}
+
+// CONTRATO DE OPERACOES
+interface OperacoesFrota {
+    void adicionar(Veiculo v);
+    void remover(String codigo);
+    Veiculo procurar(String codigo);
+    void procurarCategoria(String categoria);
+    void atualizarDiaria(String codigo, double valor);
+    void listar();
+}
+
+// GESTAO DA FROTA
+class GestaoFrota implements OperacoesFrota {
+    private ArrayList<Veiculo> veiculos = new ArrayList<>();
+
+    public void adicionar(Veiculo v) {
+        if (procurar(v.getCodigo()) != null) {
+            System.out.println("Veiculo ja existe!");
+            return;
+        }
+
+        veiculos.add(v);
+        System.out.println("Veiculo adicionado!");
+    }
+
+    public void remover(String codigo) {
+        Veiculo v = procurar(codigo);
+
+        if (v != null) {
+            veiculos.remove(v);
+            System.out.println("Veiculo removido!");
+        } else {
+            System.out.println("Veiculo nao encontrado!");
+        }
+    }
+
+    public Veiculo procurar(String codigo) {
+        for (Veiculo v : veiculos) {
+            if (v.getCodigo().equalsIgnoreCase(codigo)) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    public void procurarCategoria(String categoria) {
+        for (Veiculo v : veiculos) {
+            if (v.getCategoria().equalsIgnoreCase(categoria)) {
+                v.fichaTecnica();
+            }
+        }
+    }
+
+    public void atualizarDiaria(String codigo, double valor) {
+        Veiculo v = procurar(codigo);
+
+        if (v != null) {
+            v.setDiaria(valor);
+            System.out.println("Diaria atualizada!");
+        } else {
+            System.out.println("Veiculo nao encontrado!");
+        }
+    }
+
+    public void listar() {
+        for (Veiculo v : veiculos) {
+            v.fichaTecnica();
+        }
+    }
+}
+
+// PROGRAMA PRINCIPAL
+public class Main {
+    public static void main(String[] args) {
+
+        GestaoFrota frota = new GestaoFrota();
+
+        Carro carro = new Carro(
+            "ABC123", "Civic", "Honda",
+            150, "DISPONIVEL", 400, "Flex"
+        );
+
+        Caminhao caminhao = new Caminhao(
+            "XYZ456", "Actros", "Mercedes",
+            500, "DISPONIVEL", 20, 6
+        );
+
+        frota.adicionar(carro);
+        frota.adicionar(caminhao);
+
+        System.out.println("\n=== TODOS OS VEICULOS ===");
+        frota.listar();
+
+        System.out.println("\n=== PESQUISAR CARRO ===");
+        Veiculo encontrado = frota.procurar("ABC123");
+
+        if (encontrado != null) {
+            encontrado.fichaTecnica();
+        }
+
+        System.out.println("\n=== ATUALIZAR DIARIA ===");
+        frota.atualizarDiaria("ABC123", 200);
+
+        System.out.println("\n=== PESQUISAR POR CATEGORIA ===");
+        frota.procurarCategoria("CARRO");
+
+        System.out.println("\n=== REMOVER VEICULO ===");
+        frota.remover("XYZ456");
+
+        System.out.println("\nTotal de veiculos criados: "
+                + Veiculo.getTotalVeiculos());
+    }
+}
