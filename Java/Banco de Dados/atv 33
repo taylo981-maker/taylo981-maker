@@ -1,32 +1,165 @@
+]```sql
+-- ============================================
+-- PARTE 1 - DDL
+-- CRIAÇÃO DAS TABELAS
+-- ============================================
+
 CREATE TABLE livro (
-id_livros INT PRIMARY KEY auto_increment,
-titulo varchar (100) not null
-autor varchar (100) not null
+    id_livros INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(100) NOT NULL,
+    autor VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE leitores (
-id_leitores INT PRIMARY KEY auto_increment
-nome varchar (100) not null
-email varchar (100) unique not null
+    id_leitores INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE emprestimo (
-id_emprestimo INT PRIMARY KEY auto_increment
-id_livros INT,
-id_leitores INT,
-data_emprestimo date not null,
-data_prevista date not null,
-data_devolucao data,
+    id_emprestimo INT PRIMARY KEY AUTO_INCREMENT,
+    id_livros INT,
+    id_leitores INT,
+    data_emprestimo DATE NOT NULL,
+    data_prevista DATE NOT NULL,
+    data_devolucao DATE,
 
-FOREIGN KEY (id_livros) REFERENCES livros (id_livros),
-FOREIGN KEY (id_leitores) REFERENCES leitores (id_leitores)
+    FOREIGN KEY (id_livros) REFERENCES livro(id_livros),
+    FOREIGN KEY (id_leitores) REFERENCES leitores(id_leitores)
 );
 
-insert into livros (titulo, autor) values ( ' O Cortador' , 'Taylo Brandao'),(' O Escolhido ', 'Escannor leao'), (' 1984', ' Will Tcheca');
- 
- insert into leitores (nome, email) values (' Pedro Silva', 'pedrosilva@gmail.com'), (' Thiago Machado', 'thiagomachado@gmail.com'),('Roberto Carlos' , 'robertocarlos@gmail.com');
 
-insert into emprestimos (id_livros, id_leitor, data_emprestimo, data_prevista, data_devolucao) values ( 1, 1, '2026-09-01', '2026-09-15', '2026-09-10');
+-- ============================================
+-- PARTE 2 - DML
+-- INSERÇÃO DOS DADOS
+-- ============================================
 
-insert into emprestimos (id_livros, id_leitores, data_emprestimo, data_prevista, data_devolucao) values (2, 2, '2026-09-01','2026-09-20', null); 
- 
+INSERT INTO livro (titulo, autor) VALUES
+('O Cortador', 'Taylo Brandao'),
+('O Escolhido', 'Escannor Leao'),
+('1984', 'Will Tcheca');
+
+
+INSERT INTO leitores (nome, email) VALUES
+('Pedro Silva', 'pedrosilva@gmail.com'),
+('Thiago Machado', 'thiagomachado@gmail.com'),
+('Roberto Carlos', 'robertocarlos@gmail.com');
+
+
+INSERT INTO emprestimo
+(id_livros, id_leitores, data_emprestimo, data_prevista, data_devolucao)
+VALUES
+(1, 1, '2026-09-01', '2026-09-15', '2026-09-10');
+
+
+INSERT INTO emprestimo
+(id_livros, id_leitores, data_emprestimo, data_prevista, data_devolucao)
+VALUES
+(2, 2, '2026-09-01', '2026-09-20', NULL);
+
+
+-- ============================================
+-- PARTE 3 - CONSULTAS E JUNÇÕES
+-- DQL + JOINS
+-- ============================================
+
+
+-- 1. EMPRÉSTIMOS REALIZADOS
+-- INNER JOIN
+-- Lista o nome do leitor, título do livro
+-- e data do empréstimo.
+
+SELECT
+    l.nome,
+    li.titulo,
+    e.data_emprestimo
+FROM emprestimo e
+INNER JOIN leitores l
+    ON e.id_leitores = l.id_leitores
+INNER JOIN livro li
+    ON e.id_livros = li.id_livros;
+
+
+-- ============================================
+-- 2. TODOS OS LEITORES E SEUS EMPRÉSTIMOS
+-- LEFT JOIN
+-- ============================================
+
+SELECT
+    l.nome,
+    li.titulo
+FROM leitores l
+LEFT JOIN emprestimo e
+    ON l.id_leitores = e.id_leitores
+LEFT JOIN livro li
+    ON e.id_livros = li.id_livros;
+
+
+-- ============================================
+-- 3. LIVROS PENDENTES DE DEVOLUÇÃO
+-- WHERE + JOIN
+-- ============================================
+
+SELECT
+    l.nome,
+    li.titulo,
+    e.data_prevista
+FROM emprestimo e
+INNER JOIN leitores l
+    ON e.id_leitores = l.id_leitores
+INNER JOIN livro li
+    ON e.id_livros = li.id_livros
+WHERE e.data_devolucao IS NULL;
+
+
+-- ============================================
+-- PARTE 4 - RECURSOS AVANÇADOS
+-- FUNCTION
+-- ============================================
+
+DELIMITER $$
+
+CREATE FUNCTION fn_CalcularAtraso(id_emprestimo INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+
+    DECLARE dias_atraso INT;
+
+    SELECT
+        DATEDIFF(
+            COALESCE(data_devolucao, CURRENT_DATE),
+            data_prevista
+        )
+    INTO dias_atraso
+    FROM emprestimo
+    WHERE emprestimo.id_emprestimo = id_emprestimo;
+
+    RETURN GREATEST(dias_atraso, 0);
+
+END $$
+
+DELIMITER ;
+
+
+-- ============================================
+-- TESTE DA FUNCTION
+-- ============================================
+
+SELECT fn_CalcularAtraso(1);
+
+
+-- ============================================
+-- PROCEDURE
+-- REGISTRAR DEVOLUÇÃO
+-- ============================================
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_RegistrarDevolucao(
+    IN p_id_emprestimo INT
+)
+BEGIN
+
+    UPDATE emprestimo
+    SET
