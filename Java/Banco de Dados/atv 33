@@ -1,0 +1,32 @@
+CREATE TABLE livro (
+id_livros INT PRIMARY KEY auto_increment,
+titulo varchar (100) not null
+autor varchar (100) not null
+);
+
+CREATE TABLE leitores (
+id_leitores INT PRIMARY KEY auto_increment
+nome varchar (100) not null
+email varchar (100) unique not null
+);
+
+CREATE TABLE emprestimo (
+id_emprestimo INT PRIMARY KEY auto_increment
+id_livros INT,
+id_leitores INT,
+data_emprestimo date not null,
+data_prevista date not null,
+data_devolucao data,
+
+FOREIGN KEY (id_livros) REFERENCES livros (id_livros),
+FOREIGN KEY (id_leitores) REFERENCES leitores (id_leitores)
+);
+
+insert into livros (titulo, autor) values ( ' O Cortador' , 'Taylo Brandao'),(' O Escolhido ', 'Escannor leao'), (' 1984', ' Will Tcheca');
+ 
+ insert into leitores (nome, email) values (' Pedro Silva', 'pedrosilva@gmail.com'), (' Thiago Machado', 'thiagomachado@gmail.com'),('Roberto Carlos' , 'robertocarlos@gmail.com');
+
+insert into emprestimos (id_livros, id_leitor, data_emprestimo, data_prevista, data_devolucao) values ( 1, 1, '2026-09-01', '2026-09-15', '2026-09-10');
+
+insert into emprestimos (id_livros, id_leitores, data_emprestimo, data_prevista, data_devolucao) values (2, 2, '2026-09-01','2026-09-20', null); 
+ 
